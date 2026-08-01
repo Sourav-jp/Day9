@@ -13,10 +13,27 @@ from .services.job_service import (
     delete_job,
 )
 
+from accounts.permissions import (
+    IsEmployer,
+    IsEmployerOrCandidate,
+)
+
 
 class JobListAPIView(APIView):
 
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsEmployerOrCandidate()]
+        return [IsEmployer()]
+
     def get(self, request):
+        print("=" * 50)
+        print("Authenticated:", request.user.is_authenticated)
+        print("User:", request.user)
+        print("Email:", request.user.email)
+        print("Role:", request.user.role)
+        print("=" * 50)
+
         serializer = get_all_jobs()
         return Response(serializer.data)
 
@@ -31,7 +48,19 @@ class JobListAPIView(APIView):
 
 class JobDetailAPIView(APIView):
 
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsEmployerOrCandidate()]
+        return [IsEmployer()]
+
     def get(self, request, pk):
+        print("=" * 50)
+        print("Authenticated:", request.user.is_authenticated)
+        print("User:", request.user)
+        print("Email:", request.user.email)
+        print("Role:", request.user.role)
+        print("=" * 50)
+
         serializer = get_job(pk)
         return Response(serializer.data)
 
@@ -54,7 +83,17 @@ class JobListCreateAPIView(generics.ListCreateAPIView):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
 
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsEmployerOrCandidate()]
+        return [IsEmployer()]
+
 
 class JobRetrieveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [IsEmployerOrCandidate()]
+        return [IsEmployer()]

@@ -15,4 +15,7 @@ urlpatterns = [
 
     # Job APIs
     path("", include("jobs.urls")),
+
+    # Profile APIs
+    path("profiles/", include("profiles.urls")),
 ]
