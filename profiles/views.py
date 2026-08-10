@@ -2,6 +2,7 @@ from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
+from rest_framework.parsers import MultiPartParser, FormParser
 
 from .models import CandidateProfile, EmployerProfile
 from .serializers import (
@@ -16,6 +17,7 @@ class CandidateProfileView(
 ):
     serializer_class = CandidateProfileSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
 
     def get_queryset(self):
         if self.request.user.is_staff:

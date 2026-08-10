@@ -3,6 +3,7 @@ from .models import CandidateProfile, EmployerProfile
 
 
 class CandidateProfileSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = CandidateProfile
         fields = "__all__"
@@ -10,6 +11,7 @@ class CandidateProfileSerializer(serializers.ModelSerializer):
 
 
 class EmployerProfileSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = EmployerProfile
         fields = "__all__"

@@ -12,9 +12,16 @@ class CandidateProfile(models.Model):
     skills = models.TextField()
     education = models.TextField()
     experience = models.PositiveIntegerField()
+
     expected_salary = models.DecimalField(
         max_digits=10,
         decimal_places=2,
+    )
+
+    resume = models.FileField(
+        upload_to="resumes/",
+        null=True,
+        blank=True,
     )
 
     is_active = models.BooleanField(default=True)
